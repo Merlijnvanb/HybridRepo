@@ -96,8 +96,11 @@ public struct ArduinoMessageData
 
 public enum MessageType
 {
+    // ignore
     NONE = 0,
+    // read as string
     NFC = 1,
+    // read as float
     AIR_PRESSURE = 2,
     CRANK_MUSIC = 3,
     CRANK_POWER = 4,
