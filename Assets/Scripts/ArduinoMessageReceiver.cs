@@ -26,18 +26,18 @@ public abstract class ArduinoMessageReceiver : MonoBehaviour
                 default:
                     if (float.TryParse(data.value, out float floatVal))
                     {
-                        ParseFloatData(floatVal);
+                        ProcessFloatData(floatVal);
                     }
 
                     break;
                 
                 case MessageType.NFC:
-                    ParseStringData(data.value);
+                    ProcessStringData(data.value);
                     break;
             }
         }
     }
 
-    protected abstract void ParseStringData(string value);
-    protected abstract void ParseFloatData(float value);
+    protected virtual void ProcessStringData(string value){}
+    protected virtual void ProcessFloatData(float value){}
 }
