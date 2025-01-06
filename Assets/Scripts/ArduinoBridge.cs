@@ -4,7 +4,7 @@ using System.IO.Ports;
 
 public class ArduinoBridge : MonoBehaviour
 {
-    public static Action<ArduinoMessageData> onReceiveMessage;
+    public static event Action<ArduinoMessageData> onReceiveMessage;
     
     [SerializeField] private string port;
 
@@ -22,15 +22,17 @@ public class ArduinoBridge : MonoBehaviour
         if (!isOpen) return;
         string line = stream.ReadLine();
 
+        // this might drop inputs, test test!
         if (line != lastMessage)
         {
-            ParseMessage(line);
+            ParseAndSendMessage(line);
             lastMessage = line;
         }
     }
 
     public void OpenStream()
     {
+        // if port is null, port is COM1
         port ??= "COM1";
         try
         {
@@ -61,7 +63,7 @@ public class ArduinoBridge : MonoBehaviour
         stream.BaseStream.Flush();
     }
 
-    private void ParseMessage(string msg)
+    private void ParseAndSendMessage(string msg)
     {
         // MSG:[MessageType]:[Data]
         if (msg.StartsWith("MSG:"))
@@ -73,8 +75,9 @@ public class ArduinoBridge : MonoBehaviour
             MessageType type = (MessageType)int.Parse(msg.Substring(0,1));
             msg = msg.Remove(0, 2);
 
-            // send the data
+            // compose and send data
             ArduinoMessageData data = new ArduinoMessageData(type, msg);
+            onReceiveMessage?.Invoke(data);
         }
     }
 }
@@ -93,10 +96,11 @@ public struct ArduinoMessageData
 
 public enum MessageType
 {
-    NFC = 0,
-    AIR_PRESSURE = 1,
-    CRANK_MUSIC = 2,
-    CRANK_POWER = 3,
-    BUTTON_END = 4,
-    ROPE_ELEVATOR = 5
+    NONE = 0,
+    NFC = 1,
+    AIR_PRESSURE = 2,
+    CRANK_MUSIC = 3,
+    CRANK_POWER = 4,
+    BUTTON_END = 5,
+    ROPE_ELEVATOR = 6
 }
