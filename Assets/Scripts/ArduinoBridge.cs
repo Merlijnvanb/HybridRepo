@@ -12,7 +12,7 @@ public class ArduinoBridge : MonoBehaviour
     private bool isOpen;
     private string lastMessage;
 
-    private void Start()
+    private void Awake()
     {
         OpenStream();
     }
@@ -42,7 +42,7 @@ public class ArduinoBridge : MonoBehaviour
         try
         {
             stream = new SerialPort(port, 115200);
-            stream.ReadTimeout = 50;
+            stream.ReadTimeout = 500;
             stream.Open();
             isOpen = true;
         }

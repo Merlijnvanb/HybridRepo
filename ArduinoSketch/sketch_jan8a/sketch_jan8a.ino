@@ -1,10 +1,12 @@
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
-  Serial.println("Hi");
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
+  float testVal = sin(millis()*0.1);
+  String testString = String("MSG:6:") + testVal;
+  Serial.println(testString);
 
 }
