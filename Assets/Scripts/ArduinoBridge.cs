@@ -22,11 +22,16 @@ public class ArduinoBridge : MonoBehaviour
         if (!isOpen) return;
         string line = stream.ReadLine();
 
-        // this might drop inputs, test test!
-        if (line != lastMessage)
+        if (!string.IsNullOrEmpty(line))
         {
-            ParseAndSendMessage(line);
-            lastMessage = line;
+            Debug.Log(line);
+            
+            // this might drop inputs, test test!
+            if (line != lastMessage)
+            {
+                ParseAndSendMessage(line);
+                lastMessage = line;
+            }
         }
     }
 
