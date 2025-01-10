@@ -84,6 +84,11 @@ public class ArduinoBridge : MonoBehaviour
             ArduinoMessageData data = new ArduinoMessageData(type, msg);
             onReceiveMessage?.Invoke(data);
         }
+        // arduino is requesting data
+        else if (msg == "PLS")
+        {
+            // add stuff here like lights status
+        }
     }
 }
 
