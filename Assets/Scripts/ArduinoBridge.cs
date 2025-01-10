@@ -29,7 +29,7 @@ public class ArduinoBridge : MonoBehaviour
             // this might drop inputs, test test!
             if (line != lastMessage)
             {
-                ParseAndSendMessage(line);
+                ParseArduinoMessage(line);
                 lastMessage = line;
             }
         }
@@ -68,7 +68,7 @@ public class ArduinoBridge : MonoBehaviour
         stream.BaseStream.Flush();
     }
 
-    private void ParseAndSendMessage(string msg)
+    private void ParseArduinoMessage(string msg)
     {
         // MSG:[MessageType]:[Data]
         if (msg.StartsWith("MSG:"))
