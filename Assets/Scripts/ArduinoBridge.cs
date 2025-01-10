@@ -24,7 +24,7 @@ public class ArduinoBridge : MonoBehaviour
 
         if (!string.IsNullOrEmpty(line))
         {
-            Debug.Log(line);
+            //Debug.Log(line);
             
             // this might drop inputs, test test!
             if (line != lastMessage)

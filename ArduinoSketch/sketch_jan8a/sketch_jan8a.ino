@@ -1,19 +1,35 @@
 int tickCounter = 0;
 
+int rotaryS1 = 4;
+int rotaryS2 = 5;
+int rotS1New = 0;
+int rotS1Prev = 0;
+int rotaryCounter = 0;
+
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
   Serial.setTimeout(50);
+
+  pinMode(rotaryS1, INPUT);
+  pinMode(rotaryS2, INPUT);
 }
 
 void loop() {
-  
-  float testVal = sin(millis()*0.1);
-  send_data(6, String(testVal));
+  // read and send elevator values
+  rotS1New = digitalRead(rotaryS1);
+  if(rotS1New != rotS1Prev)
+  {
+    rotS1Prev = rotS1New;
+    if (digitalRead(rotaryS2) == rotS1New){rotaryCounter++;}
+    else {rotaryCounter--;}
+    rotaryCounter = max(rotaryCounter, 0);
+    send_data(6, String(rotaryCounter));
+  }
 
   if(tickCounter % 500 == 0)
   {
-    read_data();
+    //read_data();
   }
   tickCounter++;
 }
@@ -34,7 +50,7 @@ void send_data(int eventType, String value)
 void read_data()
 {
   // PLS = "i am now awaiting data"
-  Serial.println("PLS");
+  //Serial.println("PLS");
   Serial.flush();
   delay(50);
   String gsm = Serial.readString();
