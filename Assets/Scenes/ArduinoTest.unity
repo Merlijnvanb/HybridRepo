@@ -452,7 +452,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02b2562f639a6953b95215b2e45281f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  port: /dev/ttyACM0
+  ports:
+  - name: /dev/ttyACM0
+    designation: 2
+    readTimeout: -1
+    writeTimeout: -1
+  - name: /dev/ttyACM1
+    designation: 2
+    readTimeout: -1
+    writeTimeout: -1
+  logIncomingMessages: 1
 --- !u!4 &1991556722
 Transform:
   m_ObjectHideFlags: 0

@@ -6,66 +6,86 @@ public class ArduinoBridge : MonoBehaviour
 {
     public static event Action<ArduinoMessageData> onReceiveMessage;
     
-    [SerializeField] private string port;
+    // we use two different Arduino's, one for reading and one for writing
+    [SerializeField] private PortData[] ports;
+    [SerializeField] private bool logIncomingMessages;
 
-    private SerialPort stream;
-    private bool isOpen;
-    private string lastMessage;
+    private SerialPort[] streams;
+    private bool[] streamIsOpen;
 
     private void Awake()
     {
-        OpenStream();
+        streams = new SerialPort[ports.Length];
+        streamIsOpen = new bool[ports.Length];
+        
+        for (int i = 0; i < ports.Length; i++)
+        {
+            OpenStream(i);
+        }
     }
 
     private void Update()
     {
-        if (!isOpen) return;
-        string line = stream.ReadLine();
-
-        if (!string.IsNullOrEmpty(line))
+        for (int i = 0; i < ports.Length; i++)
         {
-            //Debug.Log(line);
-            
-            // this might drop inputs, test test!
-            if (line != lastMessage)
+            if (!streamIsOpen[i] || ports[i].designation == PortDesignation.WRITE_ONLY) return;
+            string line = streams[i].ReadLine();
+
+            if (!string.IsNullOrEmpty(line))
             {
+                if(logIncomingMessages) {Debug.Log(line);}
+            
                 ParseArduinoMessage(line);
-                lastMessage = line;
             }
         }
     }
 
-    public void OpenStream()
+    public void OpenStream(int portID)
     {
-        // if port is null, port is COM1
-        port ??= "COM1";
+        PortData port = ports[portID];
+        
         try
         {
-            stream = new SerialPort(port, 115200);
-            stream.ReadTimeout = 500;
-            stream.Open();
-            isOpen = true;
+            streams[portID] = new SerialPort(port.name, 115200);
+            streams[portID].ReadTimeout = port.readTimeout;
+            streams[portID].WriteTimeout = port.writeTimeout;
+            streams[portID].Open();
+            streamIsOpen[portID] = true;
         }
         catch (System.Exception e)
         {
-            isOpen = false;
+            streamIsOpen[portID] = false;
             Debug.LogError(e.Message);
-            Debug.LogError("Could not open SerialPort stream");
+            Debug.LogError("Could not open SerialPort at " + port.name);
         }
         
-        Send("Connected with unity!");
+        Send("Connected with unity!", portID);
     }
 
-    public void CloseStream()
+    public void CloseStreams()
     {
-        stream.Close();
-        isOpen = false;
+        for (int i = 0; i < ports.Length; i++)
+        {
+            streams[i].Close();
+            streamIsOpen[i] = false;
+        }
     }
 
     public void Send(string message)
     {
-        stream.WriteLine(message);
-        stream.BaseStream.Flush();
+        for (int i = 0; i < ports.Length; i++)
+        {
+            Send(message, i);
+        }
+    }
+    
+    public void Send(string message, int portID)
+    {
+        if (ports[portID].designation != PortDesignation.READ_ONLY)
+        {
+            streams[portID].WriteLine(message);
+            streams[portID].BaseStream.Flush();
+        }
     }
 
     private void ParseArduinoMessage(string msg)
@@ -103,6 +123,19 @@ public struct ArduinoMessageData
         value = _value;
     }
 }
+
+[System.Serializable]
+public struct PortData
+{
+    public string name;
+    public PortDesignation designation;
+    
+    // set to -1 if infinite
+    public int readTimeout;
+    public int writeTimeout;
+}
+
+public enum PortDesignation{READ_ONLY, WRITE_ONLY, BOTH}
 
 public enum MessageType
 {
