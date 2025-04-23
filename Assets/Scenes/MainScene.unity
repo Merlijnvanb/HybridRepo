@@ -2597,7 +2597,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88e6665a74974b94582a1dcc6088761a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RequiredTime: 0
+  RequiredTime: 5
+  ButtonModifier: 1.5
 --- !u!1 &1063535937
 GameObject:
   m_ObjectHideFlags: 0
@@ -4790,8 +4791,8 @@ MonoBehaviour:
   Duration: 1
   Cirkel: {fileID: 1491017488}
   Ster: {fileID: 167360413}
-  Octagon: {fileID: 389462149}
   Hart: {fileID: 1860736847}
+  Octagon: {fileID: 389462149}
   Diamant: {fileID: 475928153}
 --- !u!4 &6021746567182147265 stripped
 Transform:

@@ -6,7 +6,7 @@ public class IngredientGame : MonoBehaviour
 {
     /*
      * Volgorde is:
-     * Cirkel, Ster, Octagon, Hart, Diamant
+     * Cirkel, Ster, Hart, Octagon, Diamant
      */
 
     public Light CorrectLight;
@@ -17,8 +17,8 @@ public class IngredientGame : MonoBehaviour
 
     public GameObject Cirkel;
     public GameObject Ster;
-    public GameObject Octagon;
     public GameObject Hart;
+    public GameObject Octagon;
     public GameObject Diamant;
 
     private int currentStep = 0;
@@ -99,18 +99,15 @@ public class IngredientGame : MonoBehaviour
 
             if (currentStep >= 5)
             {
-                OzManager.Instance.IsIngredientsCompleted = true;
                 Debug.Log("Puzzle solved!");
                 OnPuzzleSolved();
             }
             return true;
         }
-        else
-        {
-            currentStep = 0;
-            Debug.Log("Incorrect sequence. Resetting...");
-            return false;
-        }
+        
+        currentStep = 0;
+        Debug.Log("Incorrect sequence. Resetting...");
+        return false;
     }
 
     private IEnumerator InputVisual(GameObject go, Light light, float duration)
@@ -142,6 +139,6 @@ public class IngredientGame : MonoBehaviour
 
     private void OnPuzzleSolved()
     {
-        
+        OzManager.Instance.IngredientsCompleted();
     }
 }
