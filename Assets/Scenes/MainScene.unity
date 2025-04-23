@@ -2598,7 +2598,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RequiredTime: 5
-  ButtonModifier: 1.5
+  ButtonModifier: 20
 --- !u!1 &1063535937
 GameObject:
   m_ObjectHideFlags: 0
