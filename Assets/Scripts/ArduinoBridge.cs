@@ -9,6 +9,7 @@ public class ArduinoBridge : MonoBehaviour
     // we use two different Arduino's, one for reading and one for writing
     [SerializeField] private PortData[] ports;
     [SerializeField] private bool logIncomingMessages;
+    [SerializeField] private bool suppressTimeoutError;
 
     private SerialPort[] streams;
     private bool[] streamIsOpen;
@@ -29,7 +30,19 @@ public class ArduinoBridge : MonoBehaviour
         for (int i = 0; i < ports.Length; i++)
         {
             if (!streamIsOpen[i] || ports[i].designation == PortDesignation.WRITE_ONLY) return;
-            string line = streams[i].ReadLine();
+            string line = "";
+            try
+            {
+                line = streams[i].ReadLine();
+            }
+            catch (TimeoutException e)
+            {
+                if (!suppressTimeoutError)
+                {
+                    Console.WriteLine("Port " + i + ": " + e);
+                    throw;
+                }
+            }
 
             if (!string.IsNullOrEmpty(line))
             {
@@ -46,10 +59,12 @@ public class ArduinoBridge : MonoBehaviour
         
         try
         {
-            streams[portID] = new SerialPort(port.name, 115200);
+            streams[portID] = new SerialPort(port.name, port.baudRate);
             streams[portID].ReadTimeout = port.readTimeout;
             streams[portID].WriteTimeout = port.writeTimeout;
             streams[portID].Open();
+            streams[portID].DtrEnable = true;
+            streams[portID].RtsEnable = true;
             streamIsOpen[portID] = true;
         }
         catch (System.Exception e)
@@ -59,7 +74,7 @@ public class ArduinoBridge : MonoBehaviour
             Debug.LogError("Could not open SerialPort at " + port.name);
         }
         
-        Send("Connected with unity!", portID);
+        //Send("Connected with unity!", portID);
     }
 
     public void CloseStreams()
@@ -129,6 +144,7 @@ public struct PortData
 {
     public string name;
     public PortDesignation designation;
+    public int baudRate;
     
     // set to -1 if infinite
     public int readTimeout;

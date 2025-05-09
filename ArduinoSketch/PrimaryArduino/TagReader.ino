@@ -1,3 +1,4 @@
+// tag reader
 bool check_for_tag(){
 
   // look for new cards

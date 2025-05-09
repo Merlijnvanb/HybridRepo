@@ -455,13 +455,11 @@ MonoBehaviour:
   ports:
   - name: /dev/ttyACM0
     designation: 2
-    readTimeout: -1
-    writeTimeout: -1
-  - name: /dev/ttyACM1
-    designation: 2
-    readTimeout: -1
-    writeTimeout: -1
+    baudRate: 9600
+    readTimeout: 10
+    writeTimeout: 10
   logIncomingMessages: 1
+  suppressTimeoutError: 1
 --- !u!4 &1991556722
 Transform:
   m_ObjectHideFlags: 0
