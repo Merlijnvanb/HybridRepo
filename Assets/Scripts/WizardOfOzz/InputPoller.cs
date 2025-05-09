@@ -8,5 +8,7 @@ public class InputPoller : MonoBehaviour
         {
             OzManager.Instance.StartGame();
         }
+        
+        // Knop, Draaiding, NFC Chips
     }
 }
