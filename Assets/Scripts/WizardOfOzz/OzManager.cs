@@ -22,11 +22,11 @@ public class OzManager : MonoBehaviour
     { 
         if (Instance != null && Instance != this) 
         { 
-            Destroy(this); 
+            Destroy(this);
         } 
         else 
         { 
-            Instance = this; 
+            Instance = this;
         }
 
         CurrentOzState = OzState.IDLE;

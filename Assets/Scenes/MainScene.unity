@@ -4932,6 +4932,7 @@ MonoBehaviour:
   SpawnPoint: {fileID: 1511631066}
   Movespeed: 0.25
   Duration: 1
+  IngredientDist: 0.015
   Cirkel: {fileID: 1491017488}
   Ster: {fileID: 167360413}
   Hart: {fileID: 1860736847}
