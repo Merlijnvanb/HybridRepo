@@ -28,6 +28,10 @@ public class IngredientGame : MonoBehaviour
     public GameObject Octagon;
     public GameObject Diamant;
 
+    public AudioSource Screaming;
+    public AudioSource Wrong;
+    public AudioSource Right;
+
     private int currentStep = 0;
     private Vector3[] ingredientPositions = new Vector3[5];
     private List<GameObject> ingredientList = new List<GameObject>();
@@ -179,14 +183,19 @@ public class IngredientGame : MonoBehaviour
         for (int i = 0; i < objects.Count; i++)
         {
             if (objects[i] != correctSequence[i])
+            {
+                Wrong.Play();
                 return false;
+            }
         }
 
+        Right.Play();
         return true;
     }
 
     private void OnPuzzleSolved()
     {
+        Screaming.Play();
         OzManager.Instance.IngredientsCompleted();
     }
 }

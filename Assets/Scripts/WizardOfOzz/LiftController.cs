@@ -8,6 +8,8 @@ public class LiftController : MonoBehaviour
     
     public Vector2 LiftMinMax;
     public float LiftSpeed;
+    
+    public AudioSource liftAudioSource;
 
     private int liftSign;
     
@@ -50,12 +52,20 @@ public class LiftController : MonoBehaviour
 
     private void MoveLift()
     {
-        var newY = Mathf.Clamp(transform.localPosition.y + LiftSpeed * liftSign * Time.deltaTime, LiftMinMax.x, LiftMinMax.y);
-        
-        transform.localPosition = new Vector3(transform.localPosition.x, 
-                                              newY, 
-                                              transform.localPosition.z);
+        float newY = Mathf.Clamp(
+            transform.localPosition.y + LiftSpeed * liftSign * Time.deltaTime,
+            LiftMinMax.x, LiftMinMax.y
+        );
+
+        transform.localPosition = new Vector3(
+            transform.localPosition.x,
+            newY,
+            transform.localPosition.z
+        );
+
+        HandleLiftSound();
     }
+
 
     private void CheckDown()
     {
@@ -63,6 +73,7 @@ public class LiftController : MonoBehaviour
         {
             OzManager.Instance.LiftDown = true;
             OnLiftDown?.Invoke();
+            liftAudioSource.Stop();
         }
         else
         {
@@ -76,10 +87,26 @@ public class LiftController : MonoBehaviour
         {
             OzManager.Instance.LiftUp = true;
             OnLiftUp?.Invoke();
+            liftAudioSource.Stop();
         }
         else
         {
             OzManager.Instance.LiftUp = false;
         }
     }
+    
+    private void HandleLiftSound()
+    {
+        if (liftSign != 0)
+        {
+            if (!liftAudioSource.isPlaying)
+                liftAudioSource.Play();
+        }
+        else
+        {
+            if (liftAudioSource.isPlaying)
+                liftAudioSource.Stop();
+        }
+    }
+
 }
