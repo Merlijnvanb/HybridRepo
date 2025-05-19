@@ -1,5 +1,5 @@
-int pushButton = 7;  // Pin voor de knop
-int ledPin = 6;      // Pin voor de LED in de knop
+int pushButton = 4;  // Pin voor de knop
+int ledPin = 3;      // Pin voor de LED in de knop
 
 int brightness = 0;  // Start helderheid van de LED
 int fadeAmount = 5;  // Hoeveel de helderheid verandert per stap
