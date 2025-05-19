@@ -8,7 +8,7 @@ public class Elevator : ArduinoMessageReceiver
     
     private void Awake()
     {
-        messageTypeFilter = MessageType.ROPE_ELEVATOR;
+        messageTypeFilter = MessageType.CRANK;
     }
 
     protected override void ProcessFloatData(float value)

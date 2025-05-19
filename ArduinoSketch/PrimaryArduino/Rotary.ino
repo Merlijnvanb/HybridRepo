@@ -37,7 +37,7 @@ void rotary_loop() {
     //}
     //Serial.print("Encoder Positie: ");
     //Serial.println(encoderPosCount);
-    send_data(3, to_string(encoderPosCount));
+    send_data(2, to_string(encoderPosCount));
   }
   pinALast = aVal;
   

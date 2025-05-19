@@ -160,9 +160,6 @@ public enum MessageType
     // read as string
     NFC = 1,
     // read as float
-    AIR_PRESSURE = 2,
-    CRANK_MUSIC = 3,
-    CRANK_POWER = 4,
-    BUTTON_END = 5,
-    ROPE_ELEVATOR = 6
+    CRANK = 2,
+    BUTTON = 3
 }

@@ -1,9 +1,7 @@
 // 0 = none
 // 1 = nfc
-// 2 = air pressure button
-// 3 = music/power crank
-// 5 = end shift button
-// 6 = rope elevator
+// 2 = crank
+// 3 = button
 void send_data(int eventType, String value)
 {
   String msg = String("MSG:") + eventType + String(":") + value;
