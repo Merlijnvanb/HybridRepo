@@ -80,6 +80,18 @@ public class IngredientGame : MonoBehaviour
         }
     }
 
+    public void EnterIngredient(Ingredient ing)
+    {
+        switch (ing)
+        {
+            case Ingredient.Cirkel: SpawnVisual(Cirkel); break;
+            case Ingredient.Ster: SpawnVisual(Ster); break;
+            case Ingredient.Hart: SpawnVisual(Hart); break;
+            case Ingredient.Octagon: SpawnVisual(Octagon); break;
+            case Ingredient.Diamant: SpawnVisual(Diamant); break;
+        }
+    }
+
     private bool CheckStep(int step)
     {
         if (step == currentStep)
