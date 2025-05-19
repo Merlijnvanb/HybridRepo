@@ -1,6 +1,6 @@
-int pinA = 3; // Verbonden met CLK
-int pinB = 4; // Verbonden met DT
-int pinBtn = 5; // Verbonden met SW
+int pinA = 5; // Verbonden met CLK
+int pinB = 6; // Verbonden met DT
+int pinBtn = 7; // Verbonden met SW
 int encoderPosCount = 0;
 int pinALast;
 int aVal;
@@ -37,7 +37,7 @@ void rotary_loop() {
     //}
     //Serial.print("Encoder Positie: ");
     //Serial.println(encoderPosCount);
-    send_data(2, to_string(encoderPosCount));
+    send_data(2, String(encoderPosCount));
   }
   pinALast = aVal;
   

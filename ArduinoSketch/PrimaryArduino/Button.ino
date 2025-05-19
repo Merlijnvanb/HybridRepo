@@ -1,5 +1,5 @@
-int pushButton = 2;  // Pin voor de knop
-int ledPin = 9;      // Pin voor de LED in de knop
+int pushButton = 7;  // Pin voor de knop
+int ledPin = 6;      // Pin voor de LED in de knop
 
 int brightness = 0;  // Start helderheid van de LED
 int fadeAmount = 5;  // Hoeveel de helderheid verandert per stap
@@ -22,12 +22,12 @@ void button_loop(){
   if (buttonState == LOW && !buttonPressed) { // Knop ingedrukt
     buttonPressed = true;
     ledState = !ledState; // Wissel LED-status
-    send_data(3, "1");
+    //send_data(3, "1");
   }
 
   if (buttonState == HIGH) { // Knop losgelaten
     buttonPressed = false;
-    send_data(3, "0");
+    //send_data(3, "0");
   }
 
   // Alleen printen als de LED-status is veranderd
