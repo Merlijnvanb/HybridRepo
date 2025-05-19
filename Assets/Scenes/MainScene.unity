@@ -5176,12 +5176,12 @@ MonoBehaviour:
   SpawnPoint: {fileID: 1511631066}
   Movespeed: 0.25
   Duration: 1
+  IngredientDist: 0.02
   Cirkel: {fileID: 1491017488}
   Ster: {fileID: 167360413}
-  Octagon: {fileID: 389462149}
   Hart: {fileID: 1860736847}
+  Octagon: {fileID: 389462149}
   Diamant: {fileID: 475928153}
-  musicAudioSource: {fileID: 2147252834}
 --- !u!82 &2147252834
 AudioSource:
   m_ObjectHideFlags: 0
