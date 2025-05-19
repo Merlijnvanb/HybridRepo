@@ -11,6 +11,9 @@
 MFRC522 mfrc522(SS_PIN, RST_PIN);  // Create MFRC522 instance
 
 void setup() {
+  button_setup();
+  rotary_setup();
+
   // delay to allow Unity to handshake
   delay(2000);
   Serial.begin(9600);
@@ -24,11 +27,16 @@ void setup() {
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-
+  // tag checking code
   if(check_for_tag()){
     send_data(1, get_tag_nuid()) ;
 
     delay(1500); // debounce delay
   }
+
+  // button loop
+  button_loop();
+  rotary_loop();
+
+  //delay(30);
 }
