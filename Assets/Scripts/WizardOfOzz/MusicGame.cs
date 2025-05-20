@@ -25,4 +25,9 @@ public class MusicGame : MonoBehaviour
         if (currentTime >= RequiredTime)
             OzManager.Instance.MusicCompleted();
     }
+
+    public void Crank()
+    {
+        currentTime += Time.deltaTime;
+    }
 }
