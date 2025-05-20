@@ -22,35 +22,33 @@ public class LiftController : MonoBehaviour
         if (OzManager.Instance.CurrentOzState != OzManager.OzState.PLAYING)
             return;
         
-        CheckSign();
         if ((!OzManager.Instance.LiftDown || OzManager.Instance.PickedUpKernels) && !(OzManager.Instance.LiftUp && OzManager.Instance.DeliveredKernels))
-            MoveLift();
+            MoveLift(CheckSign());
         CheckDown();
         CheckUp();
     }
 
-    private void CheckSign()
+    private int CheckSign()
     {
         var upInput = Input.GetKey(KeyCode.UpArrow);
         var downInput = Input.GetKey(KeyCode.DownArrow);
 
         if (upInput && downInput)
         {
-            liftSign = 0;
-            return;
+            return 0;
         }
-        
+
         if (upInput)
-            liftSign = 1;
+            return 1;
         else if (downInput)
-            liftSign = -1;
-        else 
-            liftSign = 0;
+            return -1;
+        else
+            return 0;
     }
 
-    private void MoveLift()
+    public void MoveLift(float amount)
     {
-        var newY = Mathf.Clamp(transform.localPosition.y + LiftSpeed * liftSign * Time.deltaTime, LiftMinMax.x, LiftMinMax.y);
+        var newY = Mathf.Clamp(transform.localPosition.y + LiftSpeed * amount * Time.deltaTime, LiftMinMax.x, LiftMinMax.y);
         
         transform.localPosition = new Vector3(transform.localPosition.x, 
                                               newY, 

@@ -3,8 +3,11 @@ using UnityEngine;
 
 public class Elevator : ArduinoMessageReceiver
 {
-    [SerializeField] private float moveScale;
+    [SerializeField] private LiftController lift;
+    [SerializeField] private float inputLockTime;
     private float lastValue = 0;
+    private float lockedInSign = 0;
+    private float lastInput = Mathf.NegativeInfinity;
     
     private void Awake()
     {
@@ -13,8 +16,20 @@ public class Elevator : ArduinoMessageReceiver
 
     protected override void ProcessFloatData(float value)
     {
-        float diff = (value - lastValue) *moveScale;
-        transform.Translate(Vector3.up*diff);
+        if (lastInput + inputLockTime < Time.time)
+        {
+            if (lastValue < value)
+            {
+                lockedInSign = 1;
+            }
+            else if (lastValue > value)
+            {
+                lockedInSign = -1;
+            }
+            lastInput = Time.time;
+        }
+
+        lift.MoveLift(lockedInSign);
         
         lastValue = value;
     }

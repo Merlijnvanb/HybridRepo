@@ -1586,6 +1586,7 @@ GameObject:
   m_Component:
   - component: {fileID: 564111193}
   - component: {fileID: 564111194}
+  - component: {fileID: 564111195}
   m_Layer: 0
   m_Name: Lift
   m_TagString: Untagged
@@ -1624,6 +1625,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LiftMinMax: {x: 0, y: 0.065}
   LiftSpeed: 0.025
+--- !u!114 &564111195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 564111192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9782c845f6fb8db0fb05fd95496a99a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lift: {fileID: 564111194}
+  inputLockTime: 0.05
 --- !u!1 &565261581
 GameObject:
   m_ObjectHideFlags: 0
