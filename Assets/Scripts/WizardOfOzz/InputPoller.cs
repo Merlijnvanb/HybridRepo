@@ -1,7 +1,13 @@
+using System;
 using UnityEngine;
 
-public class InputPoller : MonoBehaviour
+public class InputPoller : ArduinoMessageReceiver
 {
+    private void Awake()
+    {
+        messageTypeFilter = MessageType.BUTTON;
+    }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -10,5 +16,10 @@ public class InputPoller : MonoBehaviour
         }
         
         // Knop, Draaiding, NFC Chips
+    }
+
+    protected override void ProcessFloatData(float value)
+    {
+        OzManager.Instance.StartGame();
     }
 }
