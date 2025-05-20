@@ -39,6 +39,11 @@ public class BlowingGame : MonoBehaviour
             OzManager.Instance.BlowingCompleted();
     }
 
+    public void Blow()
+    {
+        currentTime += ButtonModifier;
+    }
+
     private void HandlePivot()
     {
         var t = currentTime / RequiredTime;
