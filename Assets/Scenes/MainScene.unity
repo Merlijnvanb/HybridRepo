@@ -1624,7 +1624,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LiftMinMax: {x: 0, y: 0.065}
-  LiftSpeed: 0.025
+  LiftSpeed: 0.03
 --- !u!114 &564111195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1638,7 +1638,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lift: {fileID: 564111194}
-  inputLockTime: 0.05
+  inputLockTime: 0.3
 --- !u!1 &565261581
 GameObject:
   m_ObjectHideFlags: 0
