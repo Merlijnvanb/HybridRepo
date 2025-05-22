@@ -8,6 +8,8 @@ bool ledState = true;       // Houdt bij of de LED aan (true) of uit (false) is
 bool buttonPressed = false; // Houdt bij of de knop is ingedrukt
 bool lastLedState = true;   // Houdt bij wat de vorige status van de LED was
 
+bool magicStartedNum = 0;
+
 void button_setup() {
   // Initialiseer seriële communicatie
   Serial.begin(9600);
@@ -33,8 +35,13 @@ void button_loop() {
 
   // Alleen printen als de LED-status is veranderd
   if (ledState != lastLedState) {
-    send_data(3, String(ledState));
-    lastLedState = ledState; // Update de laatste status
+    if(magicStartedNum > 2){
+      send_data(3, String(ledState));
+      lastLedState = ledState; // Update de laatste status
+    }
+    else {
+      magicStartedNum++;
+    }
   }
 
   // Update de LED
