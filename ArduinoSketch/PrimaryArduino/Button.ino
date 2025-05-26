@@ -27,6 +27,7 @@ void button_loop() {
   if (buttonState == LOW && !buttonPressed) { // Knop ingedrukt
     buttonPressed = true;
     ledState = !ledState; // Wissel LED-status
+      send_data(3, String(ledState));
   }
 
   if (buttonState == HIGH) { // Knop losgelaten
