@@ -23,7 +23,7 @@ public class IngredientReceiver : ArduinoMessageReceiver
     {
         if (dict.TryGetValue(value.Trim().Normalize(), out Ingredient ing))
         {
-            game.EnterIngredient(ing);
+            game?.EnterIngredient(ing);
             Debug.Log("Added ingredient "+ing);
         }
         Debug.LogWarning("No matching ingredient for id "+value);
